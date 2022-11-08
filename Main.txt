@@ -1,0 +1,120 @@
+
+
+#include <IRremote.h>
+const int RECV_PIN = A5;
+IRrecv irrecv(RECV_PIN);
+decode_results results;
+
+const int enA = 10;
+const int in1 = 9;
+const int in2 = 8;
+const int in3 = 7;
+const int in4 = 6;
+const int enB = 5;
+
+
+
+const int R_S = A0;
+const int L_S = A1;
+const int M_S = A2;
+
+
+
+int bt_ir_data;
+int IR_data;
+bool Shr = false;
+
+
+
+void forward() { //forword
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, 0);
+  digitalWrite(in3, 255);
+  digitalWrite(in4, 0);
+}
+
+void backward() { //backword
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+}
+
+void turnRight() { //turnRight
+  digitalWrite(in1, LOW);
+  digitalWrite(in2, HIGH);
+  digitalWrite(in3, LOW);
+  digitalWrite(in4, HIGH);
+}
+
+void turnLeft() { //turnLeft
+  digitalWrite(in1, HIGH);
+  digitalWrite(in2, LOW);
+  digitalWrite(in3, HIGH);
+  digitalWrite(in4, LOW);
+}
+
+void Stop() { //stop
+  digitalWrite(in1, 150);
+  digitalWrite(in2, 0);
+  digitalWrite(in3, 150);
+  digitalWrite(in4, 0);
+}
+
+
+
+
+int hey()
+ 
+  
+ { 
+   if (results.value == 0xFE58A7)
+  Shr = true;
+    
+}
+
+
+    
+void setup() {
+
+  pinMode(R_S, INPUT);
+  pinMode(L_S, INPUT);
+  pinMode(M_S, INPUT);
+
+  pinMode(enA, OUTPUT);
+  pinMode(in1, OUTPUT);
+  pinMode(in2, OUTPUT);
+  pinMode(in3, OUTPUT);
+  pinMode(in4, OUTPUT);
+  pinMode(enB, OUTPUT);
+
+  irrecv.enableIRIn();
+  irrecv.blink13(true);
+}
+
+
+
+
+
+  void loop(){
+
+hey();
+
+
+ 
+   {
+    if ((digitalRead(R_S) == 1) && (digitalRead(M_S) == 0) && (digitalRead(L_S) == 1)) {
+      forward();
+    }
+    if ((digitalRead(R_S) == 1) && (digitalRead(M_S) == 0) && (digitalRead(L_S) == 0)) {
+      turnRight();
+    }
+    if ((digitalRead(R_S) == 0) && (digitalRead(M_S) == 0) && (digitalRead(L_S) == 1)) {
+      turnLeft();
+    }
+    if ((digitalRead(R_S) == 1) && (digitalRead(M_S) == 0) && (digitalRead(L_S) == 1) && Shr) {
+      Stop();
+    }
+    
+  }
+  }
