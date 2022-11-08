@@ -16,7 +16,7 @@ bool stoped = false;
 void setup() {
   // put your setup code here, to run once:
 
-  pinMode(8, INPUT);
+  // pinMode(8, INPUT);
   pinMode(lmt1, OUTPUT);
   pinMode(lmt2, OUTPUT);
   pinMode(rmt1, OUTPUT);
@@ -31,6 +31,7 @@ void loop() {
 
   if (ir_sensor.decode(&results)){
     int rec = results.value;
+    Serial.println("test");
     
     Serial.println(rec);
     ir_sensor.resume();
