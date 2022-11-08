@@ -56,14 +56,14 @@ void loop() {
 
   if (cs == LOW) {
     analogWrite(lmt1, 0);
-    analogWrite(lmt2, 175);
-    analogWrite(rmt1, 175);
+    analogWrite(lmt2, 255);
+    analogWrite(rmt1, 255);
     analogWrite(rmt2, 0);
   }
   if (cs == HIGH) {
-    analogWrite(lmt1, 175);
+    analogWrite(lmt1, 255);
     analogWrite(lmt2, 0);
     analogWrite(rmt1, 0);
-    analogWrite(rmt2, 175);
+    analogWrite(rmt2, 255);
   }
 }
